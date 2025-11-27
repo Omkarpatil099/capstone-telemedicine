@@ -1,19 +1,17 @@
 import PatientSidebar from "./PatientSidebar";
-import PatientNavbar from "./PatientNavbar";
 
 export default function PatientLayout({ children }) {
   return (
-    <div className="flex bg-gray-100 min-h-screen">
+    <div className="flex h-screen">
+      
       {/* Sidebar */}
-      <PatientSidebar />
+      <div className="w-64 bg-gray-900 text-white">
+        <PatientSidebar />
+      </div>
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col">
-        <PatientNavbar />
-
-        <main className="p-6">
-          {children}
-        </main>
+      {/* Main Content */}
+      <div className="flex-1 p-6 bg-gray-100 overflow-auto">
+        {children}
       </div>
     </div>
   );

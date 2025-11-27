@@ -1,10 +1,7 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
 
 export default function ProtectedRoute({ children }) {
-  const { isAuthenticated, loading } = useAuth();
+  const token = localStorage.getItem("patientToken");
 
-  if (loading) return <div className="text-center p-8">Loading...</div>;
-
-  return isAuthenticated ? children : <Navigate to="/patient/login" />;
+  return token ? children : <Navigate to="/patient/login" replace />;
 }

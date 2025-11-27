@@ -1,42 +1,32 @@
-import { Link, useLocation } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
-import { FiHome, FiUser, FiUpload, FiBell, FiFileText, FiLogOut } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 export default function PatientSidebar() {
-  const { logout } = useAuth();
-  const location = useLocation();
-
-  const menu = [
-    { name: "Dashboard", icon: <FiHome />, path: "/patient/dashboard" },
-    { name: "Profile", icon: <FiUser />, path: "/patient/profile" },
-    { name: "Upload Data", icon: <FiUpload />, path: "/patient/upload" },
-    { name: "Prescriptions", icon: <FiFileText />, path: "/patient/prescriptions" },
-    { name: "Notifications", icon: <FiBell />, path: "/patient/notifications" },
-  ];
-
   return (
-    <div className="min-h-screen w-64 bg-white shadow-lg p-6 flex flex-col">
-      <h2 className="text-2xl font-bold text-blue-600 mb-8">Patient Portal</h2>
+    <div className="p-5 text-lg space-y-4">
 
-      <nav className="flex-1">
-        {menu.map((item) => (
-          <Link
-            key={item.name}
-            to={item.path}
-            className={`flex items-center gap-3 p-3 my-2 rounded-lg font-medium 
-              ${location.pathname === item.path ? "bg-blue-500 text-white" : "hover:bg-blue-100"}
-            `}
-          >
-            {item.icon} {item.name}
-          </Link>
-        ))}
-      </nav>
+      <Link className="block hover:text-yellow-400" to="/patient/dashboard">🏠 Dashboard</Link>
+      <Link className="block hover:text-yellow-400" to="/patient/profile">👤 Profile</Link>
+      <Link className="block hover:text-yellow-400" to="/patient/upload">📤 Upload Health Data</Link>
 
+      {/* Appointment */}
+      <Link className="block hover:text-yellow-400" to="/patient/appointment">🗓 Book Appointment</Link>
+      <Link className="block hover:text-yellow-400" to="/patient/appointments/status">📌 Appointment Status</Link>
+
+      {/* Medical Records */}
+      <Link className="block hover:text-yellow-400" to="/patient/medical-records">📁 Medical Records</Link>
+
+      <Link className="block hover:text-yellow-400" to="/patient/prescriptions">📄 Prescriptions</Link>
+      <Link className="block hover:text-yellow-400" to="/patient/notifications">🔔 Notifications</Link>
+
+      {/* Logout */}
       <button
-        onClick={logout}
-        className="flex items-center gap-3 p-3 mt-6 rounded-lg bg-red-500 text-white hover:bg-red-600"
+        onClick={() => {
+          localStorage.removeItem("patientToken");
+          window.location.href = "/patient/login";
+        }}
+        className="block text-left w-full text-red-400 hover:text-red-300"
       >
-        <FiLogOut /> Logout
+        🚪 Logout
       </button>
     </div>
   );
